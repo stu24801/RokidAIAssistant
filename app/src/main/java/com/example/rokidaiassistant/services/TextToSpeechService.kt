@@ -99,18 +99,22 @@ class TextToSpeechService(
      * 
      * @param text Text to synthesize
      * @param voice Voice role
+     * @param rate Speech rate in SSML format (e.g. "+0%", "+50%")
+     * @param pitch Pitch in SSML format (e.g. "+0Hz", "-12Hz")
      * @param onComplete Completion callback
      */
     suspend fun speakWithEdgeTts(
         text: String,
         voice: String = selectEdgeVoiceForText(text),
+        rate: String = "+0%",
+        pitch: String = "+0Hz",
         onComplete: (() -> Unit)? = null
     ): Result<Unit> = withContext(Dispatchers.IO) {
         try {
-            Log.d(TAG, "Edge TTS synthesis: $text")
+            Log.d(TAG, "Edge TTS synthesis: voice=$voice, rate=$rate, pitch=$pitch, text=${text.take(60)}")
             
             // Use Edge TTS WebSocket client
-            val result = edgeTtsClient.synthesize(text, voice)
+            val result = edgeTtsClient.synthesize(text, voice, rate, pitch)
             
             result.onSuccess { audioData ->
                 if (audioData.isNotEmpty()) {
@@ -255,7 +259,7 @@ class TextToSpeechService(
         }
         
         // Try Edge TTS first
-        val result = speakWithEdgeTts(text, selectEdgeVoiceForText(text), onComplete)
+        val result = speakWithEdgeTts(text, voice = selectEdgeVoiceForText(text), onComplete = onComplete)
         if (result.isSuccess) {
             return result
         }
@@ -356,6 +360,8 @@ class TextToSpeechService(
     /**
      * Select the best Edge TTS voice for [text] based on detected script.
      *
+     * If [voiceOverride] is not blank it is returned immediately, bypassing detection.
+     *
      * Detection order:
      *  1. Korean Hangul  → Korean voice
      *  2. CJK Unified    → Chinese voice
@@ -363,13 +369,18 @@ class TextToSpeechService(
      *  4. Latin alphabet → English voice
      *  5. Undetected     → derived from [preferredLocale], then English as neutral fallback
      *
+     * @param voiceOverride  Explicit voice name from user settings. If not blank, returned as-is.
      * @param preferredLocale  Caller-supplied locale (e.g. from ApiSettings.speechLanguage).
      *                         Defaults to the locale stored in this instance.
      */
-    private fun selectEdgeVoiceForText(
+    fun selectEdgeVoiceForText(
         text: String,
+        voiceOverride: String = "",
         preferredLocale: Locale? = this.preferredLocale
     ): String {
+        // Honour explicit user override first
+        if (voiceOverride.isNotBlank()) return voiceOverride
+
         return when {
             text.any { it in '\uAC00'..'\uD7AF' } -> EDGE_VOICE_SUNHI
             text.any { it in '\u4E00'..'\u9FFF' } -> EDGE_VOICE_XIAOXIAO

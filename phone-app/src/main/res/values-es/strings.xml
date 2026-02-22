@@ -59,7 +59,33 @@
     <string name="param_presence_penalty_desc">Penaliza los tokens que ya han aparecido en el texto, animando al modelo a hablar sobre nuevos temas.</string>
     <string name="param_presets">Ajustes preestablecidos</string>
     <string name="reset_defaults">Restablecer valores predeterminados</string>
-    
+
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">Configuración de TTS</string>
+    <string name="tts_settings_subtitle">Motor de voz, velocidad, tono…</string>
+    <string name="tts_settings_description">Configura la salida de texto a voz (TTS). Edge TTS ofrece voces neuronales de alta calidad para un habla natural en muchos idiomas.</string>
+    <string name="tts_settings_note">Edge TTS requiere conexión a Internet. Si no está disponible, la app cambiará automáticamente al motor TTS del sistema Android.</string>
+    <string name="tts_engine">Motor TTS</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">Voces neuronales de alta calidad (requiere Internet)</string>
+    <string name="tts_provider_system">TTS del sistema Android</string>
+    <string name="tts_provider_system_desc">Disponible sin conexión, calidad según los paquetes de voz instalados</string>
+    <string name="tts_provider_google_translate">Google Traductor TTS</string>
+    <string name="tts_provider_google_translate_desc">Gratis, calidad media (requiere Internet)</string>
+    <string name="tts_voice_override">Voz</string>
+    <string name="tts_voice_override_desc">Elige una voz específica o deja que el motor detecte automáticamente el idioma del texto.</string>
+    <string name="tts_speech_rate">Velocidad de habla</string>
+    <string name="tts_speech_rate_desc">Ajusta la velocidad de habla de Edge TTS. 1.0× es la velocidad normal.</string>
+    <string name="tts_pitch">Tono</string>
+    <string name="tts_pitch_desc">Ajusta el desplazamiento de tono de Edge TTS. 0.0 es el tono predeterminado.</string>
+    <string name="tts_system_rate">Velocidad del sistema</string>
+    <string name="tts_system_rate_desc">Ajusta la velocidad del motor TTS del sistema Android.</string>
+    <string name="tts_system_pitch">Tono del sistema</string>
+    <string name="tts_system_pitch_desc">Ajusta el tono del motor TTS del sistema Android.</string>
+    <string name="tts_test_voice">Probar voz</string>
+    <string name="tts_testing">Probando…</string>
+    <string name="tts_test_sample">¡Hola! Esta es una prueba del motor de síntesis de voz.</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">Configuración de grabación</string>
     <string name="auto_analyze_recordings">Analizar grabaciones automáticamente</string>

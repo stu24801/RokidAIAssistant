@@ -60,6 +60,32 @@
     <string name="param_presets">Presets</string>
     <string name="reset_defaults">Reset Defaults</string>
 
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">TTS Settings</string>
+    <string name="tts_settings_subtitle">Voice engine, speed, pitch…</string>
+    <string name="tts_settings_description">Configure text-to-speech output. Edge TTS provides high-quality neural voices for natural-sounding speech in many languages.</string>
+    <string name="tts_settings_note">Edge TTS requires an internet connection. If unavailable, the app will automatically fall back to the Android system TTS engine.</string>
+    <string name="tts_engine">TTS Engine</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">High-quality neural voices (requires internet)</string>
+    <string name="tts_provider_system">Android System TTS</string>
+    <string name="tts_provider_system_desc">Offline-capable, quality depends on installed voice packs</string>
+    <string name="tts_provider_google_translate">Google Translate TTS</string>
+    <string name="tts_provider_google_translate_desc">Free, average quality (requires internet)</string>
+    <string name="tts_voice_override">Voice</string>
+    <string name="tts_voice_override_desc">Choose a specific voice or let the engine auto-detect from the text language.</string>
+    <string name="tts_speech_rate">Speech Rate</string>
+    <string name="tts_speech_rate_desc">Adjust how fast Edge TTS speaks. 1.0× is normal speed.</string>
+    <string name="tts_pitch">Pitch</string>
+    <string name="tts_pitch_desc">Adjust the pitch offset for Edge TTS. 0.0 is the default pitch.</string>
+    <string name="tts_system_rate">System Speech Rate</string>
+    <string name="tts_system_rate_desc">Adjust how fast the Android system TTS engine speaks.</string>
+    <string name="tts_system_pitch">System Pitch</string>
+    <string name="tts_system_pitch_desc">Adjust the pitch of the Android system TTS engine.</string>
+    <string name="tts_test_voice">Test Voice</string>
+    <string name="tts_testing">Testing…</string>
+    <string name="tts_test_sample">Hello! This is a test of the text-to-speech engine.</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">Recording Settings</string>
     <string name="auto_analyze_recordings">Auto-Analyze Recordings</string>

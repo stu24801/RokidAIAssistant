@@ -59,7 +59,33 @@
     <string name="param_presence_penalty_desc">텍스트에 이미 나타난 토큰에 페널티를 부과하여 모델이 새로운 주제에 대해 이야기하도록 유도합니다.</string>
     <string name="param_presets">프리셋</string>
     <string name="reset_defaults">기본값으로 재설정</string>
-    
+
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">TTS 설정</string>
+    <string name="tts_settings_subtitle">음성 엔진, 속도, 피치…</string>
+    <string name="tts_settings_description">텍스트 음성 변환(TTS) 출력을 설정합니다. Edge TTS는 다양한 언어에서 자연스러운 음성을 제공하는 고품질 신경망 음성을 지원합니다.</string>
+    <string name="tts_settings_note">Edge TTS는 인터넷 연결이 필요합니다. 사용 불가 시 Android 시스템 TTS 엔진으로 자동 전환됩니다.</string>
+    <string name="tts_engine">TTS 엔진</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">고품질 신경망 음성 (인터넷 필요)</string>
+    <string name="tts_provider_system">Android 시스템 TTS</string>
+    <string name="tts_provider_system_desc">오프라인 가능, 설치된 음성 팩에 따라 품질이 달라짐</string>
+    <string name="tts_provider_google_translate">Google 번역 TTS</string>
+    <string name="tts_provider_google_translate_desc">무료, 보통 품질 (인터넷 필요)</string>
+    <string name="tts_voice_override">음성</string>
+    <string name="tts_voice_override_desc">특정 음성을 선택하거나 텍스트 언어에 따라 자동 감지하도록 합니다.</string>
+    <string name="tts_speech_rate">음성 속도</string>
+    <string name="tts_speech_rate_desc">Edge TTS의 발화 속도를 조정합니다. 1.0×이 일반 속도입니다.</string>
+    <string name="tts_pitch">피치</string>
+    <string name="tts_pitch_desc">Edge TTS의 피치 오프셋을 조정합니다. 0.0이 기본 피치입니다.</string>
+    <string name="tts_system_rate">시스템 음성 속도</string>
+    <string name="tts_system_rate_desc">Android 시스템 TTS 엔진의 발화 속도를 조정합니다.</string>
+    <string name="tts_system_pitch">시스템 피치</string>
+    <string name="tts_system_pitch_desc">Android 시스템 TTS 엔진의 피치를 조정합니다.</string>
+    <string name="tts_test_voice">음성 테스트</string>
+    <string name="tts_testing">테스트 중…</string>
+    <string name="tts_test_sample">안녕하세요! 텍스트 음성 변환 엔진 테스트입니다.</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">녹음 설정</string>
     <string name="auto_analyze_recordings">녹음 자동 분석</string>

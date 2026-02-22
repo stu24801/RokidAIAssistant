@@ -59,7 +59,33 @@
     <string name="param_presence_penalty_desc">ลงโทษโทเค็นที่ปรากฏในข้อความแล้ว กระตุ้นให้โมเดลพูดถึงหัวข้อใหม่</string>
     <string name="param_presets">ค่าที่ตั้งไว้ล่วงหน้า</string>
     <string name="reset_defaults">รีเซ็ตเป็นค่าเริ่มต้น</string>
-    
+
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">การตั้งค่า TTS</string>
+    <string name="tts_settings_subtitle">เครื่องเสียง, ความเร็ว, ระดับเสียง…</string>
+    <string name="tts_settings_description">กำหนดค่าการแปลงข้อความเป็นเสียง (TTS) Edge TTS มอบเสียงนิวรอลคุณภาพสูงสำหรับการพูดที่เป็นธรรมชาติหลายภาษา</string>
+    <string name="tts_settings_note">Edge TTS ต้องการการเชื่อมต่ออินเทอร์เน็ต หากไม่พร้อมใช้งาน แอปจะสลับไปใช้เครื่อง TTS ระบบ Android โดยอัตโนมัติ</string>
+    <string name="tts_engine">เครื่อง TTS</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">เสียงนิวรอลคุณภาพสูง (ต้องการอินเทอร์เน็ต)</string>
+    <string name="tts_provider_system">TTS ระบบ Android</string>
+    <string name="tts_provider_system_desc">ใช้งานออฟไลน์ได้ คุณภาพขึ้นอยู่กับชุดเสียงที่ติดตั้ง</string>
+    <string name="tts_provider_google_translate">Google แปลภาษา TTS</string>
+    <string name="tts_provider_google_translate_desc">ฟรี คุณภาพปานกลาง (ต้องการอินเทอร์เน็ต)</string>
+    <string name="tts_voice_override">เสียง</string>
+    <string name="tts_voice_override_desc">เลือกเสียงเฉพาะหรือปล่อยให้เครื่องตรวจจับภาษาของข้อความโดยอัตโนมัติ</string>
+    <string name="tts_speech_rate">ความเร็วการพูด</string>
+    <string name="tts_speech_rate_desc">ปรับความเร็วการพูดของ Edge TTS 1.0× คือความเร็วปกติ</string>
+    <string name="tts_pitch">ระดับเสียง</string>
+    <string name="tts_pitch_desc">ปรับออฟเซ็ตระดับเสียงของ Edge TTS 0.0 คือระดับเสียงเริ่มต้น</string>
+    <string name="tts_system_rate">ความเร็วระบบ</string>
+    <string name="tts_system_rate_desc">ปรับความเร็วของเครื่อง TTS ระบบ Android</string>
+    <string name="tts_system_pitch">ระดับเสียงระบบ</string>
+    <string name="tts_system_pitch_desc">ปรับระดับเสียงของเครื่อง TTS ระบบ Android</string>
+    <string name="tts_test_voice">ทดสอบเสียง</string>
+    <string name="tts_testing">กำลังทดสอบ…</string>
+    <string name="tts_test_sample">สวัสดีครับ! นี่คือการทดสอบเครื่องแปลงข้อความเป็นเสียง</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">การตั้งค่าการบันทึก</string>
     <string name="auto_analyze_recordings">วิเคราะห์การบันทึกอัตโนมัติ</string>

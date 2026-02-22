@@ -122,4 +122,64 @@ class ApiSettingsTest {
         assertThat(credentials.assemblyaiApiKey).isEqualTo("assembly-key")
         assertThat(credentials.azureSpeechKey).isEqualTo("azure-key")
     }
+
+    // ==================== TTS settings ====================
+
+    @Test
+    fun `default TTS settings use EDGE_TTS with auto-detect`() {
+        // 測試：預設 TTS 設定應使用 EDGE_TTS 引擎並自動偵測語音
+        val settings = ApiSettings()
+
+        assertThat(settings.ttsProvider).isEqualTo(TtsProvider.EDGE_TTS)
+        assertThat(settings.ttsVoiceOverride).isEmpty()
+        assertThat(settings.ttsSpeechRate).isEqualTo(1.0f)
+        assertThat(settings.ttsPitch).isEqualTo(0.0f)
+        assertThat(settings.systemTtsSpeechRate).isEqualTo(1.0f)
+        assertThat(settings.systemTtsPitch).isEqualTo(1.0f)
+    }
+
+    @Test
+    fun `copy with TTS provider preserves other TTS fields`() {
+        // 測試：複製時更改 provider 應保留其他 TTS 欄位
+        val original = ApiSettings(
+            ttsProvider = TtsProvider.EDGE_TTS,
+            ttsVoiceOverride = "ko-KR-SunHiNeural",
+            ttsSpeechRate = 1.5f,
+            ttsPitch = -0.2f,
+            systemTtsSpeechRate = 0.8f,
+            systemTtsPitch = 1.2f
+        )
+        val copied = original.copy(ttsProvider = TtsProvider.SYSTEM_TTS)
+
+        assertThat(copied.ttsProvider).isEqualTo(TtsProvider.SYSTEM_TTS)
+        assertThat(copied.ttsVoiceOverride).isEqualTo("ko-KR-SunHiNeural")
+        assertThat(copied.ttsSpeechRate).isEqualTo(1.5f)
+        assertThat(copied.ttsPitch).isEqualTo(-0.2f)
+        assertThat(copied.systemTtsSpeechRate).isEqualTo(0.8f)
+        assertThat(copied.systemTtsPitch).isEqualTo(1.2f)
+    }
+
+    @Test
+    fun `TTS settings equality check`() {
+        // 測試：相同 TTS 設定的 ApiSettings 應相等
+        val a = ApiSettings(
+            ttsProvider = TtsProvider.GOOGLE_TRANSLATE_TTS,
+            ttsVoiceOverride = "en-US-JennyNeural",
+            ttsSpeechRate = 1.2f
+        )
+        val b = ApiSettings(
+            ttsProvider = TtsProvider.GOOGLE_TRANSLATE_TTS,
+            ttsVoiceOverride = "en-US-JennyNeural",
+            ttsSpeechRate = 1.2f
+        )
+        assertThat(a).isEqualTo(b)
+    }
+
+    @Test
+    fun `TTS settings inequality when provider differs`() {
+        // 測試：不同 TTS provider 的 ApiSettings 應不相等
+        val a = ApiSettings(ttsProvider = TtsProvider.EDGE_TTS)
+        val b = ApiSettings(ttsProvider = TtsProvider.SYSTEM_TTS)
+        assertThat(a).isNotEqualTo(b)
+    }
 }

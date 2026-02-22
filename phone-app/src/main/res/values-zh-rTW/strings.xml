@@ -60,6 +60,32 @@
     <string name="param_presets">預設值</string>
     <string name="reset_defaults">重設為預設值</string>
 
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">TTS 設定</string>
+    <string name="tts_settings_subtitle">語音引擎、語速、音調…</string>
+    <string name="tts_settings_description">設定文字轉語音輸出。Edge TTS 提供高品質神經網路語音，可在多種語言中實現自然流暢的發音。</string>
+    <string name="tts_settings_note">Edge TTS 需要網路連線。若無法使用，應用程式將自動切換到 Android 系統 TTS 引擎。</string>
+    <string name="tts_engine">TTS 引擎</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">高品質神經網路語音（需要網路）</string>
+    <string name="tts_provider_system">Android 系統 TTS</string>
+    <string name="tts_provider_system_desc">支援離線，品質取決於已安裝的語音套件</string>
+    <string name="tts_provider_google_translate">Google 翻譯 TTS</string>
+    <string name="tts_provider_google_translate_desc">免費，品質一般（需要網路）</string>
+    <string name="tts_voice_override">語音</string>
+    <string name="tts_voice_override_desc">選擇特定語音，或讓引擎根據文字語言自動偵測。</string>
+    <string name="tts_speech_rate">語速</string>
+    <string name="tts_speech_rate_desc">調整 Edge TTS 的語速。1.0× 為正常速度。</string>
+    <string name="tts_pitch">音調</string>
+    <string name="tts_pitch_desc">調整 Edge TTS 的音調偏移。0.0 為預設音調。</string>
+    <string name="tts_system_rate">系統語速</string>
+    <string name="tts_system_rate_desc">調整 Android 系統 TTS 引擎的語速。</string>
+    <string name="tts_system_pitch">系統音調</string>
+    <string name="tts_system_pitch_desc">調整 Android 系統 TTS 引擎的音調。</string>
+    <string name="tts_test_voice">測試語音</string>
+    <string name="tts_testing">測試中…</string>
+    <string name="tts_test_sample">你好！這是文字轉語音引擎的測試。</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">錄音設定</string>
     <string name="auto_analyze_recordings">自動分析錄音</string>

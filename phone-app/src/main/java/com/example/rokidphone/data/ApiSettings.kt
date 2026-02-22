@@ -844,6 +844,14 @@ data class ApiSettings(
     // The actual default (localized) is provided by SettingsRepository.getDefaultSystemPrompt()
     val systemPrompt: String = "",
     
+    // TTS settings
+    val ttsProvider: TtsProvider = TtsProvider.EDGE_TTS,
+    val ttsVoiceOverride: String = "",
+    val ttsSpeechRate: Float = 1.0f,
+    val ttsPitch: Float = 0.0f,
+    val systemTtsSpeechRate: Float = 1.0f,
+    val systemTtsPitch: Float = 1.0f,
+
     // Recording settings
     // Auto-analyze recordings with AI after stopping (default: true)
     val autoAnalyzeRecordings: Boolean = true,

@@ -28,17 +28,17 @@ class TextToSpeechServiceTest {
     private fun createService(preferredLocale: Locale? = null): TextToSpeechService =
         TextToSpeechService(context, preferredLocale)
 
-    /** Invoke selectEdgeVoiceForText(text, preferredLocale) via reflection. */
+    /**
+     * Invoke selectEdgeVoiceForText(text, voiceOverride, preferredLocale).
+     * The method is now public, so we call it directly.
+     */
     private fun selectVoice(
         service: TextToSpeechService,
         text: String,
-        preferredLocale: Locale? = null
+        preferredLocale: Locale? = null,
+        voiceOverride: String = ""
     ): String {
-        val method: Method = TextToSpeechService::class.java.getDeclaredMethod(
-            "selectEdgeVoiceForText", String::class.java, Locale::class.java
-        )
-        method.isAccessible = true
-        return method.invoke(service, text, preferredLocale) as String
+        return service.selectEdgeVoiceForText(text, voiceOverride, preferredLocale)
     }
 
     /** Invoke detectLocaleForText(text) via reflection. */
@@ -183,5 +183,55 @@ class TextToSpeechServiceTest {
     @Test
     fun `EDGE_VOICE_NANAMI is the Japanese voice`() {
         assertThat(TextToSpeechService.EDGE_VOICE_NANAMI).contains("ja-JP")
+    }
+
+    // ==================== voiceOverride ====================
+
+    @Test
+    fun `selectEdgeVoiceForText - voiceOverride bypasses script detection`() {
+        // 測試：明確的語音覆寫應跳過腳本偵測
+        val service = createService()
+        val overrideVoice = "en-GB-SoniaNeural"
+        // Korean text would normally select SunHi, but override wins
+        val voice = selectVoice(service, "안녕하세요", voiceOverride = overrideVoice)
+        assertThat(voice).isEqualTo(overrideVoice)
+    }
+
+    @Test
+    fun `selectEdgeVoiceForText - blank voiceOverride uses normal detection`() {
+        // 測試：空白覆寫應回退到正常偵測
+        val service = createService()
+        val voice = selectVoice(service, "안녕하세요", voiceOverride = "")
+        assertThat(voice).isEqualTo(TextToSpeechService.EDGE_VOICE_SUNHI)
+    }
+
+    @Test
+    fun `selectEdgeVoiceForText - whitespace-only voiceOverride uses normal detection`() {
+        // 測試：僅空白字元的覆寫應回退到正常偵測
+        val service = createService()
+        val voice = selectVoice(service, "こんにちは", voiceOverride = "   ")
+        assertThat(voice).isEqualTo(TextToSpeechService.EDGE_VOICE_NANAMI)
+    }
+
+    @Test
+    fun `selectEdgeVoiceForText - voiceOverride works for arbitrary voice names`() {
+        // 測試：覆寫可使用任意語音名稱
+        val service = createService()
+        val customVoice = "zh-TW-HsiaoChenNeural"
+        val voice = selectVoice(service, "Hello world", voiceOverride = customVoice)
+        assertThat(voice).isEqualTo(customVoice)
+    }
+
+    @Test
+    fun `selectEdgeVoiceForText - voiceOverride takes priority over preferredLocale`() {
+        // 測試：覆寫的優先級高於偏好地區設定
+        val service = createService()
+        val voice = selectVoice(
+            service,
+            "١٢٣",    // no detectable script
+            preferredLocale = Locale.KOREAN,
+            voiceOverride = "ja-JP-KeitaNeural"
+        )
+        assertThat(voice).isEqualTo("ja-JP-KeitaNeural")
     }
 }

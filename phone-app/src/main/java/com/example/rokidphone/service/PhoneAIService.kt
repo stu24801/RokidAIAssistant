@@ -1574,54 +1574,144 @@ class SpeechToTextService(private val apiKey: String) {
 }
 
 /**
- * TTS Service (Simplified version)
+ * TTS Service
+ * Routes through EdgeTtsClient (high-quality neural voices) or System TTS
+ * based on user preference in ApiSettings.ttsProvider.
  */
 class TextToSpeechService(private val context: android.content.Context) {
-    
+
+    private val TAG = "TextToSpeechService"
+
     private var tts: android.speech.tts.TextToSpeech? = null
-    
+    private var systemTtsReady = false
+    private val edgeTtsClient = com.example.rokidphone.service.EdgeTtsClient()
+    private val ttsScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
     init {
+        // Always initialise system TTS so it's available as fallback / if user picks SYSTEM_TTS
         tts = android.speech.tts.TextToSpeech(context) { status ->
             if (status == android.speech.tts.TextToSpeech.SUCCESS) {
                 val defaultLocale = java.util.Locale.getDefault()
                 val langResult = tts?.setLanguage(defaultLocale)
-                if (langResult == android.speech.tts.TextToSpeech.LANG_MISSING_DATA ||
-                    langResult == android.speech.tts.TextToSpeech.LANG_NOT_SUPPORTED) {
-                    android.util.Log.w(
-                        "TextToSpeechService",
-                        "System TTS does not support device locale '$defaultLocale'. " +
-                        "Consider installing the '${defaultLocale.displayLanguage}' TTS pack."
-                    )
-                }
+                systemTtsReady = langResult != android.speech.tts.TextToSpeech.LANG_MISSING_DATA
+                        && langResult != android.speech.tts.TextToSpeech.LANG_NOT_SUPPORTED
             } else {
-                android.util.Log.e("TextToSpeechService", "System TTS initialization failed (status=$status)")
+                android.util.Log.e(TAG, "System TTS initialisation failed (status=$status)")
             }
         }
     }
-    
+
+    /**
+     * Primary speak entry-point. Reads TTS provider preference from [SettingsRepository].
+     */
     fun speak(text: String, onAudioChunk: (ByteArray) -> Unit) {
-        // Simplified version: using system TTS
-        // TODO: For consistent multi-language voice quality (especially Korean), consider
-        //       routing through EdgeTtsClient (Microsoft Edge TTS) instead of system TTS.
+        val settings = SettingsRepository.getInstance(context).getSettings()
+
+        when (settings.ttsProvider) {
+            com.example.rokidphone.data.TtsProvider.EDGE_TTS -> speakWithEdge(text, settings, onAudioChunk)
+            com.example.rokidphone.data.TtsProvider.SYSTEM_TTS -> speakWithSystemTts(text, settings)
+            com.example.rokidphone.data.TtsProvider.GOOGLE_TRANSLATE_TTS -> speakWithSystemTts(text, settings)
+        }
+    }
+
+    // ── Edge TTS ─────────────────────────────────────────
+
+    private fun speakWithEdge(text: String, settings: com.example.rokidphone.data.ApiSettings, onAudioChunk: (ByteArray) -> Unit) {
+        ttsScope.launch {
+            try {
+                // Resolve voice
+                val voice = if (settings.ttsVoiceOverride.isNotBlank()) {
+                    settings.ttsVoiceOverride
+                } else {
+                    val locale = try {
+                        java.util.Locale.forLanguageTag(settings.speechLanguage)
+                    } catch (_: Exception) { java.util.Locale.getDefault() }
+                    com.example.rokidphone.ui.detectEdgeVoice(text, locale)
+                }
+
+                // Format rate & pitch
+                val rate = com.example.rokidphone.ui.formatEdgeRate(settings.ttsSpeechRate)
+                val pitch = com.example.rokidphone.ui.formatEdgePitch(settings.ttsPitch)
+
+                android.util.Log.d(TAG, "Edge TTS: voice=$voice, rate=$rate, pitch=$pitch")
+
+                val result = edgeTtsClient.synthesize(text, voice, rate, pitch)
+
+                result.onSuccess { audioData ->
+                    if (audioData.isNotEmpty()) {
+                        onAudioChunk(audioData)
+                        withContext(Dispatchers.Main) {
+                            playAudioData(audioData)
+                        }
+                    } else {
+                        android.util.Log.w(TAG, "Edge TTS returned empty data, falling back to system TTS")
+                        withContext(Dispatchers.Main) { speakWithSystemTts(text, settings) }
+                    }
+                }
+
+                result.onFailure { err ->
+                    android.util.Log.w(TAG, "Edge TTS failed: ${err.message}, falling back to system TTS")
+                    withContext(Dispatchers.Main) { speakWithSystemTts(text, settings) }
+                }
+            } catch (e: Exception) {
+                android.util.Log.e(TAG, "Edge TTS error", e)
+                withContext(Dispatchers.Main) { speakWithSystemTts(text, null) }
+            }
+        }
+    }
+
+    // ── System TTS ───────────────────────────────────────
+
+    private fun speakWithSystemTts(text: String, settings: com.example.rokidphone.data.ApiSettings?) {
+        if (!systemTtsReady || tts == null) {
+            android.util.Log.e(TAG, "System TTS not ready")
+            return
+        }
+
         val locale = detectLocaleForText(text)
         val langResult = tts?.setLanguage(locale)
         if (langResult == android.speech.tts.TextToSpeech.LANG_MISSING_DATA ||
             langResult == android.speech.tts.TextToSpeech.LANG_NOT_SUPPORTED) {
-            android.util.Log.w(
-                "TextToSpeechService",
-                "System TTS language pack not available for locale '$locale'. " +
-                "The voice may sound incorrect (e.g. Korean text read by a Chinese voice). " +
-                "Install the '${locale.displayLanguage}' TTS pack in device Settings > " +
-                "Accessibility > Text-to-speech. Falling back to device default locale."
-            )
-            // Fall back to device default rather than leaving an unsupported locale set
+            android.util.Log.w(TAG, "System TTS: locale '$locale' not supported, using device default")
             tts?.setLanguage(java.util.Locale.getDefault())
         }
+
+        tts?.setSpeechRate(settings?.systemTtsSpeechRate ?: 1.0f)
+        tts?.setPitch(settings?.systemTtsPitch ?: 1.0f)
         tts?.speak(text, android.speech.tts.TextToSpeech.QUEUE_FLUSH, null, null)
     }
-    
+
+    // ── Audio playback ───────────────────────────────────
+
+    private fun playAudioData(audioData: ByteArray) {
+        try {
+            val tempFile = java.io.File.createTempFile("tts_", ".mp3", context.cacheDir)
+            java.io.FileOutputStream(tempFile).use { it.write(audioData) }
+            android.media.MediaPlayer().apply {
+                setDataSource(tempFile.absolutePath)
+                setAudioAttributes(
+                    android.media.AudioAttributes.Builder()
+                        .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .setUsage(android.media.AudioAttributes.USAGE_ASSISTANT)
+                        .build()
+                )
+                setOnCompletionListener { mp -> mp.release(); tempFile.delete() }
+                setOnErrorListener { mp, _, _ -> mp.release(); tempFile.delete(); true }
+                prepare()
+                start()
+            }
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "Failed to play audio", e)
+        }
+    }
+
+    // ── Lifecycle ────────────────────────────────────────
+
     fun shutdown() {
+        ttsScope.cancel()
+        tts?.stop()
         tts?.shutdown()
+        tts = null
     }
 
     private fun detectLocaleForText(text: String): java.util.Locale {

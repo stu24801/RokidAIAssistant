@@ -59,7 +59,33 @@
     <string name="param_presence_penalty_desc">Phạt các token đã xuất hiện trong văn bản, khuyến khích mô hình nói về các chủ đề mới.</string>
     <string name="param_presets">Cài đặt sẵn</string>
     <string name="reset_defaults">Đặt lại giá trị mặc định</string>
-    
+
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">Cài đặt TTS</string>
+    <string name="tts_settings_subtitle">Động cơ giọng nói, tốc độ, cao độ…</string>
+    <string name="tts_settings_description">Cấu hình đầu ra chuyển văn bản thành giọng nói (TTS). Edge TTS cung cấp giọng nói thần kinh chất lượng cao cho lời nói tự nhiên bằng nhiều ngôn ngữ.</string>
+    <string name="tts_settings_note">Edge TTS yêu cầu kết nối Internet. Nếu không khả dụng, ứng dụng sẽ tự động chuyển sang động cơ TTS hệ thống Android.</string>
+    <string name="tts_engine">Động cơ TTS</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">Giọng nói thần kinh chất lượng cao (cần Internet)</string>
+    <string name="tts_provider_system">TTS hệ thống Android</string>
+    <string name="tts_provider_system_desc">Hoạt động ngoại tuyến, chất lượng phụ thuộc vào gói giọng nói đã cài</string>
+    <string name="tts_provider_google_translate">Google Dịch TTS</string>
+    <string name="tts_provider_google_translate_desc">Miễn phí, chất lượng trung bình (cần Internet)</string>
+    <string name="tts_voice_override">Giọng nói</string>
+    <string name="tts_voice_override_desc">Chọn một giọng nói cụ thể hoặc để động cơ tự động phát hiện ngôn ngữ của văn bản.</string>
+    <string name="tts_speech_rate">Tốc độ nói</string>
+    <string name="tts_speech_rate_desc">Điều chỉnh tốc độ nói của Edge TTS. 1.0× là tốc độ bình thường.</string>
+    <string name="tts_pitch">Cao độ</string>
+    <string name="tts_pitch_desc">Điều chỉnh độ lệch cao độ của Edge TTS. 0.0 là cao độ mặc định.</string>
+    <string name="tts_system_rate">Tốc độ hệ thống</string>
+    <string name="tts_system_rate_desc">Điều chỉnh tốc độ động cơ TTS hệ thống Android.</string>
+    <string name="tts_system_pitch">Cao độ hệ thống</string>
+    <string name="tts_system_pitch_desc">Điều chỉnh cao độ động cơ TTS hệ thống Android.</string>
+    <string name="tts_test_voice">Thử giọng nói</string>
+    <string name="tts_testing">Đang thử…</string>
+    <string name="tts_test_sample">Xin chào! Đây là bài kiểm tra động cơ chuyển văn bản thành giọng nói.</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">Cài đặt ghi âm</string>
     <string name="auto_analyze_recordings">Tự động phân tích bản ghi</string>

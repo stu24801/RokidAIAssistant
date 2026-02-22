@@ -52,6 +52,14 @@ class SettingsRepository(private val context: Context) {
         private const val KEY_PUSH_CHAT_TO_GLASSES = "push_chat_to_glasses"
         private const val KEY_PUSH_RECORDING_TO_GLASSES = "push_recording_to_glasses"
         
+        // Keys for TTS settings
+        private const val KEY_TTS_PROVIDER = "tts_provider"
+        private const val KEY_TTS_VOICE_OVERRIDE = "tts_voice_override"
+        private const val KEY_TTS_SPEECH_RATE = "tts_speech_rate"
+        private const val KEY_TTS_PITCH = "tts_pitch"
+        private const val KEY_SYSTEM_TTS_SPEECH_RATE = "system_tts_speech_rate"
+        private const val KEY_SYSTEM_TTS_PITCH = "system_tts_pitch"
+
         // Keys for LLM parameters
         private const val KEY_TEMPERATURE = "llm_temperature"
         private const val KEY_MAX_TOKENS = "llm_max_tokens"
@@ -150,6 +158,14 @@ class SettingsRepository(private val context: Context) {
                 Locale.getDefault().toLanguageTag()
             ) ?: Locale.getDefault().toLanguageTag(),
             systemPrompt = systemPrompt,
+            ttsProvider = TtsProvider.fromName(
+                prefs.getString(KEY_TTS_PROVIDER, TtsProvider.EDGE_TTS.name) ?: TtsProvider.EDGE_TTS.name
+            ),
+            ttsVoiceOverride = prefs.getString(KEY_TTS_VOICE_OVERRIDE, "") ?: "",
+            ttsSpeechRate = prefs.getFloat(KEY_TTS_SPEECH_RATE, 1.0f),
+            ttsPitch = prefs.getFloat(KEY_TTS_PITCH, 0.0f),
+            systemTtsSpeechRate = prefs.getFloat(KEY_SYSTEM_TTS_SPEECH_RATE, 1.0f),
+            systemTtsPitch = prefs.getFloat(KEY_SYSTEM_TTS_PITCH, 1.0f),
             autoAnalyzeRecordings = prefs.getBoolean(KEY_AUTO_ANALYZE_RECORDINGS, true),
             pushChatToGlasses = prefs.getBoolean(KEY_PUSH_CHAT_TO_GLASSES, true),
             pushRecordingToGlasses = prefs.getBoolean(KEY_PUSH_RECORDING_TO_GLASSES, true),
@@ -213,6 +229,12 @@ class SettingsRepository(private val context: Context) {
             putString(KEY_SPEECH_LANGUAGE, settings.speechLanguage)
             putString(KEY_RESPONSE_LANGUAGE, settings.responseLanguage)
             putString(KEY_SYSTEM_PROMPT, settings.systemPrompt)
+            putString(KEY_TTS_PROVIDER, settings.ttsProvider.name)
+            putString(KEY_TTS_VOICE_OVERRIDE, settings.ttsVoiceOverride)
+            putFloat(KEY_TTS_SPEECH_RATE, settings.ttsSpeechRate)
+            putFloat(KEY_TTS_PITCH, settings.ttsPitch)
+            putFloat(KEY_SYSTEM_TTS_SPEECH_RATE, settings.systemTtsSpeechRate)
+            putFloat(KEY_SYSTEM_TTS_PITCH, settings.systemTtsPitch)
             putBoolean(KEY_AUTO_ANALYZE_RECORDINGS, settings.autoAnalyzeRecordings)
             putBoolean(KEY_PUSH_CHAT_TO_GLASSES, settings.pushChatToGlasses)
             putBoolean(KEY_PUSH_RECORDING_TO_GLASSES, settings.pushRecordingToGlasses)

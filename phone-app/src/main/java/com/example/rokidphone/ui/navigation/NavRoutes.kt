@@ -21,6 +21,7 @@ object NavRoutes {
     const val CONVERSATION_DETAIL = "conversation/{conversationId}"
     const val LOG_VIEWER = "log_viewer"
     const val LLM_PARAMETERS = "llm_parameters"
+    const val TTS_SETTINGS = "tts_settings"
     const val RECORDINGS = "recordings"
     const val RECORDING_DETAIL = "recording/{recordingId}"
     

@@ -59,7 +59,33 @@
     <string name="param_presence_penalty_desc">Штрафує токени, що вже з\'явилися в тексті, спонукаючи модель обговорювати нові теми.</string>
     <string name="param_presets">Попередні налаштування</string>
     <string name="reset_defaults">Скинути до значень за замовчуванням</string>
-    
+
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">Налаштування TTS</string>
+    <string name="tts_settings_subtitle">Голосовий рушій, швидкість, тон…</string>
+    <string name="tts_settings_description">Налаштуйте вивід синтезу мовлення (TTS). Edge TTS пропонує високоякісні нейронні голоси для природного мовлення багатьма мовами.</string>
+    <string name="tts_settings_note">Edge TTS потребує підключення до Інтернету. Якщо недоступно, додаток автоматично перемикнеться на системний рушій TTS Android.</string>
+    <string name="tts_engine">Рушій TTS</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">Високоякісні нейронні голоси (потрібен Інтернет)</string>
+    <string name="tts_provider_system">Системний TTS Android</string>
+    <string name="tts_provider_system_desc">Доступний офлайн, якість залежить від встановлених голосових пакетів</string>
+    <string name="tts_provider_google_translate">Google Перекладач TTS</string>
+    <string name="tts_provider_google_translate_desc">Безкоштовно, середня якість (потрібен Інтернет)</string>
+    <string name="tts_voice_override">Голос</string>
+    <string name="tts_voice_override_desc">Виберіть конкретний голос або дозвольте рушію автоматично визначити мову тексту.</string>
+    <string name="tts_speech_rate">Швидкість мовлення</string>
+    <string name="tts_speech_rate_desc">Налаштуйте швидкість мовлення Edge TTS. 1.0× — нормальна швидкість.</string>
+    <string name="tts_pitch">Тон</string>
+    <string name="tts_pitch_desc">Налаштуйте зміщення тону Edge TTS. 0.0 — тон за замовчуванням.</string>
+    <string name="tts_system_rate">Системна швидкість</string>
+    <string name="tts_system_rate_desc">Налаштуйте швидкість системного рушія TTS Android.</string>
+    <string name="tts_system_pitch">Системний тон</string>
+    <string name="tts_system_pitch_desc">Налаштуйте тон системного рушія TTS Android.</string>
+    <string name="tts_test_voice">Тест голосу</string>
+    <string name="tts_testing">Тестування…</string>
+    <string name="tts_test_sample">Привіт! Це тест рушія синтезу мовлення.</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">Налаштування запису</string>
     <string name="auto_analyze_recordings">Автоматичний аналіз записів</string>

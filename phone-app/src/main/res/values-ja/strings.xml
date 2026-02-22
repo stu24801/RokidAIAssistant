@@ -59,7 +59,33 @@
     <string name="param_presence_penalty_desc">テキスト中に既に出現したトークンにペナルティを課し、モデルが新しいトピックについて話すよう促します。</string>
     <string name="param_presets">プリセット</string>
     <string name="reset_defaults">デフォルトにリセット</string>
-    
+
+    <!-- TTS Settings -->
+    <string name="tts_settings_title">TTS設定</string>
+    <string name="tts_settings_subtitle">音声エンジン、速度、ピッチ…</string>
+    <string name="tts_settings_description">テキスト読み上げ（TTS）出力を設定します。Edge TTSは多言語で自然な音声を提供する高品質ニューラル音声をサポートしています。</string>
+    <string name="tts_settings_note">Edge TTSにはインターネット接続が必要です。利用できない場合、アプリは自動的にAndroidシステムTTSエンジンにフォールバックします。</string>
+    <string name="tts_engine">TTSエンジン</string>
+    <string name="tts_provider_edge">Microsoft Edge TTS</string>
+    <string name="tts_provider_edge_desc">高品質ニューラル音声（インターネット必要）</string>
+    <string name="tts_provider_system">AndroidシステムTTS</string>
+    <string name="tts_provider_system_desc">オフライン対応、インストール済み音声パックにより品質が異なる</string>
+    <string name="tts_provider_google_translate">Google翻訳TTS</string>
+    <string name="tts_provider_google_translate_desc">無料、普通の品質（インターネット必要）</string>
+    <string name="tts_voice_override">音声</string>
+    <string name="tts_voice_override_desc">特定の音声を選択するか、テキスト言語から自動検出させます。</string>
+    <string name="tts_speech_rate">音声速度</string>
+    <string name="tts_speech_rate_desc">Edge TTSの発話速度を調整します。1.0×が通常速度です。</string>
+    <string name="tts_pitch">ピッチ</string>
+    <string name="tts_pitch_desc">Edge TTSのピッチオフセットを調整します。0.0がデフォルトピッチです。</string>
+    <string name="tts_system_rate">システム音声速度</string>
+    <string name="tts_system_rate_desc">AndroidシステムTTSエンジンの発話速度を調整します。</string>
+    <string name="tts_system_pitch">システムピッチ</string>
+    <string name="tts_system_pitch_desc">AndroidシステムTTSエンジンのピッチを調整します。</string>
+    <string name="tts_test_voice">音声テスト</string>
+    <string name="tts_testing">テスト中…</string>
+    <string name="tts_test_sample">こんにちは！テキスト読み上げエンジンのテストです。</string>
+
     <!-- Recording Settings -->
     <string name="recording_settings">録音設定</string>
     <string name="auto_analyze_recordings">録音を自動分析</string>

@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -36,6 +37,7 @@ fun SettingsScreen(
     onBack: () -> Unit,
     onNavigateToLogViewer: () -> Unit = {},
     onNavigateToLlmParameters: () -> Unit = {},
+    onNavigateToTtsSettings: () -> Unit = {},
     onTestConnection: (ApiSettings) -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -263,6 +265,15 @@ fun SettingsScreen(
                         subtitle = stringResource(R.string.llm_parameters_subtitle),
                         onClick = onNavigateToLlmParameters,
                         icon = Icons.Default.Tune
+                    )
+                    
+                    HorizontalDivider()
+                    
+                    SettingsRow(
+                        title = stringResource(R.string.tts_settings_title),
+                        subtitle = stringResource(R.string.tts_settings_subtitle),
+                        onClick = onNavigateToTtsSettings,
+                        icon = Icons.AutoMirrored.Filled.VolumeUp
                     )
                     
                     HorizontalDivider()
